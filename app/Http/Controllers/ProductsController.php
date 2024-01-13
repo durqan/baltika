@@ -21,9 +21,9 @@ class ProductsController extends Controller
             return $e->getMessage();
         }
 
-        $checkArticleUnique = Products::where('article', $validated['article'])->first();
+        $checkArticleUnique = Products::checkUniqueArticle($validated['article'], $request['productsId']);
 
-        if(!empty($checkArticleUnique))
+        if(!$checkArticleUnique)
             return 'Артикул должен быть уникальным';
 
         $data = null;

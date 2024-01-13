@@ -97,6 +97,7 @@
                     </div>
                     <div class="btn btn-info addProduct" style="margin-top: 20px; color: white; width: 200px">Добавить
                     </div>
+                    <input type="hidden" class="productsId" name="productsId" value="0">
                 </form>
             </div>
         </div>
@@ -112,7 +113,6 @@
         </div>
     </div>
 </div>
-<input type="hidden" class="productsId" name="productsId" value="0">
 <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="/js/index.js"></script>
