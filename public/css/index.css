@@ -1,0 +1,28 @@
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+.navbar{
+    display: flex!important;
+    justify-content: left!important;
+}
+
+.nav-link:hover, .nav-link.active{
+    border-bottom: 2px solid red;
+    margin-bottom: -1px;
+}
+
+.modal-body{
+    background-color: #374050;
+    color: white
+}
+
+.gg-trash:hover, .fa.fa-edit:hover{
+    -webkit-transform: scale(1.3);
+    cursor: pointer;
+}
+
+.table-light:hover{
+    cursor: pointer;
+}
