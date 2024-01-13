@@ -22,7 +22,7 @@ class Products extends Model
         return $query->where('status', 'available');
     }
 
-    public static function addEdit($product, $id = 0)
+    public static function addEdit($product, $id = 0): int
     {
         if ($id != 0) {
             self::where('id', $id)->update($product);
@@ -34,7 +34,19 @@ class Products extends Model
         return isset($product->id) ? $product->id : $id;
     }
 
-    protected function getStatusAttribute($value)
+    public static function checkUniqueArticle($article, $id = 0): bool
+    {
+        if (empty($id))
+            $check = Products::where('article', $article)->first();
+        else
+            $check = Products::where('article', $article)
+                ->where('id', '!=', $id)
+                ->first();
+
+        return empty($check) ?? true;
+    }
+
+    protected function getStatusAttribute($value): string
     {
         if ($value == 'available')
             return 'Доступен';
@@ -42,8 +54,8 @@ class Products extends Model
             return 'Не Доступен';
     }
 
-    protected function getDataAttribute($value)
+    protected function getDataAttribute($value): array
     {
-        return json_decode($value, true);
+        return !empty($value) ? json_decode($value, true) : array();
     }
 }

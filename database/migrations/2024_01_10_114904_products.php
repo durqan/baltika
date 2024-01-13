@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('article');
             $table->string('name');
             $table->string('status');
-            $table->jsonb('data');
+            $table->jsonb('data')->nullable();
             $table->timestamps();
         });
     }

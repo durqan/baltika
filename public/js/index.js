@@ -28,7 +28,7 @@ $(function () {
                 if (resp === 'success')
                     location.reload();
                 else {
-                    $('.forValidationErrors').html('<div class="alert alert-danger" role="alert">'+resp+'</div>');
+                    $('.forValidationErrors').html('<div class="alert alert-danger" role="alert">' + resp + '</div>');
                 }
             }
         })
@@ -44,6 +44,9 @@ $(function () {
             },
             dataType: 'JSON',
             success: function (product) {
+                if (product['attributes'].length < 1)
+                    product['attributes'] = '-';
+
                 let productHtml = '<div class="mb-3" style="display: flex; justify-content: space-between">\n' +
                     '<h1 class="modal-title fs-5">' + product['name'] + '</h1>\n' +
                     '<div style="display: flex; justify-content: space-between; width: 90px">' +
@@ -82,19 +85,21 @@ $(function () {
 
                     let attributesHtml = '';
 
-                    for (let attribute of product['attributes']) {
-                        attribute = attribute.split(':')
+                    if (product['attributes'] != '-') {
+                        for (let attribute of product['attributes']) {
+                            attribute = attribute.split(':')
 
-                        attributesHtml += '<div class="mb-3 attributeElement" style="display: flex;">' +
-                            '<input type="text" class="form-control" style="width: 250px" name="nameData[]" value="' + attribute[0] + '">' +
-                            '<input type="text" class="form-control" style="width: 250px; margin-left: 20px" name="valueData[]" value="' + attribute[1] + '">' +
-                            '<i class="gg-trash deleteAddAttributeElement" style="margin: 20px 5px 20px 20px; color: #4b4e57"></i></div>';
+                            attributesHtml += '<div class="mb-3 attributeElement" style="display: flex;">' +
+                                '<input type="text" class="form-control" style="width: 250px" name="nameData[]" value="' + attribute[0] + '">' +
+                                '<input type="text" class="form-control" style="width: 250px; margin-left: 20px" name="valueData[]" value="' + attribute[1] + '">' +
+                                '<i class="gg-trash deleteAddAttributeElement" style="margin: 20px 5px 20px 20px; color: #4b4e57"></i></div>';
+                        }
+
+                        $('#attributeDiv').removeAttr('hidden');
+                        $('.addAttributeDiv').before(attributesHtml);
                     }
 
-                    $('#attributeDiv').removeAttr('hidden');
-                    $('.addAttributeDiv').before(attributesHtml);
-
-                    if(product['manager_role'] == 'ADMIN')
+                    if (product['manager_role'] != 'ADMIN')
                         $('input[name="article"]').prop('readonly', true);
 
                     $(document).on('click', '.deleteAddAttributeElement', function () {
