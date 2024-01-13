@@ -28,8 +28,8 @@ class ProductsController extends Controller
 
         $data = null;
 
-        if(isset($validated['nameData']))
-            $data = json_encode(array_combine($validated['nameData'], $validated['valueData']));
+        if(isset($request['nameData']))
+            $data = json_encode(array_combine($request['nameData'], $request['valueData']));
 
         $newProduct =
             [
