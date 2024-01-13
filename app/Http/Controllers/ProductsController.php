@@ -10,8 +10,7 @@ class ProductsController extends Controller
 {
     public function view()
     {
-        $products = Products::get();
-        return view('products', ['products' => $products]);
+        return view('products', ['products' => Products::get()]);
     }
 
     public function addEditProduct(AddEditProductRequest $request)
